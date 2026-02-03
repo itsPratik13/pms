@@ -10,7 +10,7 @@ const Navbar = () => {
       <div className="flex items-center gap-8 ">
         <div className="flex h-min w-80 relative">
             <SearchIcon className="absolute right-1 top-1/2 mr-2 size-5 -translate-y-1/2 transform cursor-pointer"/>
-            <input className="w-full rounded-2xl p-2  bg-gray-200 dark:bg-transparent dark:border dark:border-neutral-500 focus:outline-none  focus:ring-2 focus:ring-zinc-400 dark:focus:ring-zinc-600" type="search" placeholder="Search"/>
+            <input className="w-full rounded-2xl p-2  bg-gray-200 dark:bg-transparent dark:border dark:border-neutral-500 focus:outline-none  focus:ring-2 focus:ring-zinc-400 dark:focus:ring-zinc-600 shadow-input" type="search" placeholder="Search"/>
         </div>
 
       </div>
