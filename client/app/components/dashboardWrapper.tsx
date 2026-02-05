@@ -1,19 +1,27 @@
-import React from 'react'
-import Navbar from './navbar'
-import Sidebar from './sidebar'
-import ThemeToggle from './themeToggle'
+"use client";
+import React, { useEffect } from "react";
+import Navbar from "./navbar";
+import Sidebar from "./sidebar";
+import ThemeToggle from "./themeToggle";
+import StoreProvider, { useAppSelector } from "../redux";
 
-const DashboardWrapper = ({children}:{children:React.ReactNode}) => {
+const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className=' flex min-h-screen w-full  bg-zinc-50 font-sans dark:bg-black'>
-        <Sidebar/>
-      <main className='flex w-full  min-h-100 flex-col  bg-zinc-50 dark:bg-black font-sans '>
-        <Navbar/>
-        {children}</main>
-        
-      
+    <div className=" flex min-h-screen w-full  bg-zinc-50 font-sans dark:bg-black">
+      <Sidebar />
+      <main className="flex w-full  min-h-100 flex-col  bg-zinc-50 dark:bg-black font-sans ">
+        <Navbar />
+        {children}
+      </main>
     </div>
-  )
-}
+  );
+};
 
-export default DashboardWrapper
+const DashboardWrapper = ({ children }: { children: React.ReactNode }) => {
+  return (
+    <StoreProvider>
+      <DashboardLayout>{children}</DashboardLayout>
+    </StoreProvider>
+  );
+};
+export default DashboardWrapper;
