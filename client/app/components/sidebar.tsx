@@ -1,20 +1,59 @@
 "use client";
-import { LockIcon, LucideIcon, X } from "lucide-react";
-import React from "react";
+import {
+  ChevronDown,
+  ChevronUp,
+  Home,
+  LockIcon,
+  LucideIcon,
+  Search,
+  Settings,
+  Users2,
+  UsersIcon,
+  X,
+} from "lucide-react";
+import React, { useState } from "react";
+
 import { useAppDispatch, useAppSelector } from "../redux";
 import { setIsSideBarCollapsed } from "../state";
+import { usePathname } from "next/navigation";
+import { useDispatch } from "react-redux";
+import Link from "next/link";
 
-interface SidebarLinksTypes{
-  href:string,
-  icon:LucideIcon,
-  label:string,
-  isCollapsed:boolean
+interface SidebarLinksTypes {
+  href: string;
+  Icon: LucideIcon;
+  label: string;
+  isCollapsed: boolean;
 }
-const SidebarLinks=()=>{
-
-}
+const SidebarLinks = ({
+  href,
+  Icon,
+  label,
+  isCollapsed,
+}: SidebarLinksTypes) => {
+  const pathname = usePathname();
+  const isActive =
+    href === pathname || (pathname == "/" && href == "/dashboard");
+  const dispatch = useDispatch();
+  const isSideBarCollapsed = useAppSelector((state) => {
+    state.global.isSideBarCollapsed;
+  });
+  return (
+    <Link href={href} className="w-full">
+      <div className={`flex w-full items-center gap-3 p-3 justify-start`}>
+        <Icon className="mr-8 size-5" />
+        <span className="text-neutral-800 text-[16px] dark:text-neutral-300">
+          {label}
+        </span>
+      </div>
+    </Link>
+  );
+};
 
 const Sidebar = () => {
+  const [showProject, setShowProject] = useState(false);
+  const [showPriority, setShowPriority] = useState(false);
+
   const dispatch = useAppDispatch();
   const isSideBarCollapsed = useAppSelector(
     (state) => state.global.isSideBarCollapsed
@@ -23,7 +62,7 @@ const Sidebar = () => {
   return (
     <div
       className={`
-        bg-transparent min-h-screen
+        bg-transparent min-h-screen min-w-0
         transition-[width] duration-300 ease-in-out
         ${isSideBarCollapsed ? "w-0 overflow-hidden" : "w-80"}
         flex flex-col justify-start z-20 shadow-2xl dark:bg-neutral-900
@@ -75,11 +114,69 @@ const Sidebar = () => {
             </div>
           </div>
         </div>
+        <hr className="border-neutral-200 mt-1 mb-2 w-full dark:border-neutral-700" />
         {/* links  */}
+        <div className={`w-full flex flex-col mt-1.5  `}>
+          <SidebarLinks
+            href="/"
+            Icon={Home}
+            isCollapsed={isSideBarCollapsed}
+            label="Home"
+          />
+          <SidebarLinks
+            href="/timeline"
+            Icon={Home}
+            isCollapsed={isSideBarCollapsed}
+            label="Timeline"
+          />
+          <SidebarLinks
+            href="/search"
+            Icon={Search}
+            isCollapsed={isSideBarCollapsed}
+            label="Search"
+          />{" "}
+          <SidebarLinks
+            href="/settings"
+            Icon={Settings}
+            isCollapsed={isSideBarCollapsed}
+            label="Settings"
+          />{" "}
+          <SidebarLinks
+            href="/users"
+            Icon={Users2}
+            isCollapsed={isSideBarCollapsed}
+            label="Users"
+          />{" "}
+          <SidebarLinks
+            href="/teams"
+            Icon={UsersIcon}
+            isCollapsed={isSideBarCollapsed}
+            label="Teams"
+          />
+        </div>
+        {/* project list  */}
+        <div
+          className="flex justify-between mt-3"
+          onClick={() => setShowProject((prev) => !prev)}
+        >
+          <button className="text-neutral-800 dark:text-neutral-300 cursor-pointer">
+            Projects
+          </button>
+          {showProject ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+        </div>
+        {/* priority list  */}
+        <div
+          className="flex justify-between mt-3"
+          onClick={() => setShowPriority((prev) => !prev)}
+        >
+          <button className="text-neutral-800 dark:text-neutral-300 cursor-pointer">
+            Priority
+          </button>
+          {showPriority ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+        </div>
       </div>
     </div>
   );
 };
 
 export default Sidebar;
-
