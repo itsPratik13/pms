@@ -1,12 +1,17 @@
 "use client";
 import {
+  AlertCircle,
+  AlertOctagon,
   ChevronDown,
   ChevronUp,
   Home,
+  Layers3,
   LockIcon,
   LucideIcon,
   Search,
   Settings,
+  ShieldAlert,
+  TriangleAlert,
   Users2,
   UsersIcon,
   X,
@@ -116,7 +121,7 @@ const Sidebar = () => {
         </div>
         <hr className="border-neutral-200 mt-1 mb-2 w-full dark:border-neutral-700" />
         {/* links  */}
-        <div className={`w-full flex flex-col mt-1.5  `}>
+        <div className={`w-full flex flex-col   `}>
           <SidebarLinks
             href="/"
             Icon={Home}
@@ -154,9 +159,10 @@ const Sidebar = () => {
             label="Teams"
           />
         </div>
+        <hr className="border-neutral-200 mt-1 mb-2 w-full dark:border-neutral-700" />
         {/* project list  */}
         <div
-          className="flex justify-between mt-3"
+          className="flex justify-between mt-1"
           onClick={() => setShowProject((prev) => !prev)}
         >
           <button className="text-neutral-800 dark:text-neutral-300 cursor-pointer">
@@ -166,7 +172,7 @@ const Sidebar = () => {
         </div>
         {/* priority list  */}
         <div
-          className="flex justify-between mt-3"
+          className="flex justify-between mt-1"
           onClick={() => setShowPriority((prev) => !prev)}
         >
           <button className="text-neutral-800 dark:text-neutral-300 cursor-pointer">
@@ -174,6 +180,14 @@ const Sidebar = () => {
           </button>
           {showPriority ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
         </div>
+        {showPriority && 
+        <>
+        <SidebarLinks href="/priority/urgent" label="Urgent" Icon={AlertCircle} isCollapsed={isSideBarCollapsed}/>
+        <SidebarLinks href="/priority/high" label="High" Icon={ShieldAlert} isCollapsed={isSideBarCollapsed}/>
+        <SidebarLinks href="/priority/medium" label="Medium" Icon={TriangleAlert} isCollapsed={isSideBarCollapsed}/>
+        <SidebarLinks href="/priority/low" label="Low" Icon={AlertOctagon} isCollapsed={isSideBarCollapsed}/><SidebarLinks href="/priority/backlog" label="Backlog" Icon={Layers3} isCollapsed={isSideBarCollapsed}/>
+        </>
+        }
       </div>
     </div>
   );
