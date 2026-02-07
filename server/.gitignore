@@ -1,0 +1,12 @@
+# Server dependencies
+server/node_modules/
+
+# Environment variables
+server/.env
+
+# Logs
+server/logs
+server/*.log
+
+
+/generated/prisma
