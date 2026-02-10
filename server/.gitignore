@@ -1,5 +1,7 @@
 # Server dependencies
 server/node_modules/
+server/dist
+node_modules/
 
 # Environment variables
 server/.env
@@ -10,3 +12,5 @@ server/*.log
 
 
 /generated/prisma
+
+

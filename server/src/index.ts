@@ -1,13 +1,32 @@
-import express from "express"
+import express from 'express'
+import cors from 'cors'
+import helmet from 'helmet'
+import morgan from 'morgan'
+import dotenv from 'dotenv'
 
-const app=express();
+// Load env vars
+dotenv.config()
 
-app.get("/",(req,res)=>{
-    console.log("Working")
+const app = express()
+const PORT =8000
+
+// ─── Middleware ───────────────────────────────────────────────
+app.use(helmet())
+app.use(cors())
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+app.use(morgan('dev'))
+
+// ─── Health check ─────────────────────────────────────────────
+app.get('/', (_req, res) => {
+  res.json({
+    status: 'ok',
+    uptime: process.uptime(),
+    timestamp: new Date().toISOString()
+  })
 })
 
-const port=process.env.PORT||8000;
-
-app.listen(port,()=>{
-    console.log(`Server is running at port ${port}`)
+// ─── Start server ─────────────────────────────────────────────
+app.listen(PORT, () => {
+  console.log(` Server running on ${PORT}`)
 })
