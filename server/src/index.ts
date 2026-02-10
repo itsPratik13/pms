@@ -3,6 +3,7 @@ import cors from 'cors'
 import helmet from 'helmet'
 import morgan from 'morgan'
 import dotenv from 'dotenv'
+import projectRoutes from "./routes/projectRoutes.js"
 
 // Load env vars
 dotenv.config()
@@ -25,6 +26,7 @@ app.get('/', (_req, res) => {
     timestamp: new Date().toISOString()
   })
 })
+app.use("/projects",projectRoutes);
 
 // ─── Start server ─────────────────────────────────────────────
 app.listen(PORT, () => {
