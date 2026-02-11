@@ -29,7 +29,9 @@ export const getTaskById = async (req: Request, res: Response) => {
     res.json(task);
     console.table(task);
   } catch (error) {
-    res.status(500).json({message:"Task not found for the given id :", error})
+    res
+      .status(500)
+      .json({ message: "Task not found for the given id :", error });
   }
 };
 
@@ -89,6 +91,25 @@ export const createTasks = async (
     res.status(201).json(newTask);
     console.table(newTask);
   } catch (error) {
-    res.status(500).json({ message: "Error creating a project: " + error });
+    res.status(500).json({ message: "Error creating a task: " + error });
+  }
+};
+
+export const updateTaskStatus = async (req: Request, res: Response) => {
+  try {
+    const { taskId } = req.params;
+    const { status } = req.body;
+    const updatedTask = await prisma.task.update({
+        where:{
+            id:Number(taskId),
+        },
+        data:{
+            status:status
+        }
+    });
+    res.json(updatedTask);
+    console.log(updatedTask);
+  } catch (error) {
+    res.status(500).json({message:"Error updating task:"})
   }
 };
