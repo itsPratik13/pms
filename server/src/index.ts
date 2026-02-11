@@ -3,7 +3,10 @@ import cors from 'cors'
 import helmet from 'helmet'
 import morgan from 'morgan'
 import dotenv from 'dotenv'
+
+
 import projectRoutes from "./routes/projectRoutes.js"
+import taskRoutes from "./routes/taskRoutes.js"
 
 // Load env vars
 dotenv.config()
@@ -27,6 +30,7 @@ app.get('/', (_req, res) => {
   })
 })
 app.use("/projects",projectRoutes);
+app.use("/tasks",taskRoutes);
 
 // ─── Start server ─────────────────────────────────────────────
 app.listen(PORT, () => {
