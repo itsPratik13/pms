@@ -44,7 +44,7 @@ const Navbar = () => {
 
       {/* RIGHT */}
       <div className="flex items-center gap-4">
-        <Link href="/settings">
+        <Link href="">
           <Settings />
         </Link>
         <ThemeToggle />
